@@ -12,38 +12,39 @@ archive_filetypes = [".tar", ".rar", ".zip"]
 # document_filetypes = "/^.*\.(pdf|PDF|doc|DOC|docx|DOCX|PAGES|pages)$/"
 
 def check_type(file, directory)
-  if file =~ /^.*\.(pdf|PDF|doc|DOC|docx|DOCX|PAGES|pages)$/
+  case file
+  when /^.*\.(pdf|PDF|doc|DOC|docx|DOCX|PAGES|pages|txt|TXT)$/
     puts 'DOCUMENT MATCH'
     unless File.directory?("#{directory}/documents")
       puts 'Creating documents folder'
       Dir.mkdir("#{directory}/documents")
-      final_dir = "#{directory}/documents"
-      file != directory ? FileUtils.mv(file, final_dir) : ''
     end
-  elsif file =~ /^.*\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|svg|SVG|mp4|MP4|mov|MOV|mp3|MP3|mpeg4|MPEG4)$/
+    final_dir = "#{directory}/documents"
+    file != directory ? FileUtils.mv(file, final_dir) : ''
+  when /^.*\.(gif|GIF|jpg|JPG|jpeg|JPEG|png|PNG|svg|SVG|mp4|MP4|mov|MOV|mp3|MP3|mpeg4|MPEG4|heic|HEIC)$/
     puts 'MEDIA MATCH'
     unless File.directory?("#{directory}/media")
       puts 'Creating media folder'
       Dir.mkdir("#{directory}/media")
-      final_dir = "#{directory}/media"
-      file != directory ? FileUtils.mv(file, final_dir) : ''
     end
-  elsif file =~ /^.*\.(dmg|DMG|exe|EXE|jar|JAR)$/
+    final_dir = "#{directory}/media"
+    file != directory ? FileUtils.mv(file, final_dir) : ''
+  when /^.*\.(dmg|DMG|exe|EXE|jar|JAR)$/
     puts 'PROGRAM MATCH'
-    unless File.directory?("#{directory}/program")
+    unless File.directory?("#{directory}/programs")
       puts 'CREATING PROGRAM folder'
       Dir.mkdir("#{directory}/programs")
-      final_dir = "#{directory}/programs"
-      file != directory ? FileUtils.mv(file, final_dir) : ''
     end
-  elsif file =~ /^.*\.(zip|ZIP|tar|TAR|rar|RAR)$/
+    final_dir = "#{directory}/programs"
+    file != directory ? FileUtils.mv(file, final_dir) : ''
+  when /^.*\.(zip|ZIP|tar|TAR|rar|RAR)$/
     puts 'ARCHIVE MATCH'
     unless File.directory?("#{directory}/archives")
       puts 'CREATING ARCHIVES folder'
       Dir.mkdir("#{directory}/archives")
-      final_dir = "#{directory}/archives"
-      file != directory ? FileUtils.mv(file, final_dir) : ''
     end
+    final_dir = "#{directory}/archives"
+    file != directory ? FileUtils.mv(file, final_dir) : ''
   else
     puts 'NOT A MATCH...'
     file != directory ? FileUtils.mv(file, directory) : ''
