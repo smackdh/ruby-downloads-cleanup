@@ -19,9 +19,9 @@ Install gems packages
 bundle install
 ```
 
-### Run a server
+### Run the app
 ```
-ruby 
+ruby clean_up.rb
 ```
 
 ## Built With
