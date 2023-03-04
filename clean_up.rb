@@ -12,24 +12,20 @@ folders = {
   '9' => desktop_folder = File.join(Dir.home, 'Desktop')
 }
 
-folders.each {|key, folder| puts "[#{key}] - #{File.basename(folder)}"}
+list_options = folders.each {|key, folder| puts "[#{key}] - #{File.basename(folder)}"}
+user_choice = folders[gets.chomp]
 
-user_input = gets.chomp
-user_choice = ""
-if user_input == '0'
-  user_choice = downloads_folder
-elsif user_input == '3'
-  user_choice = documents_folder
-elsif user_input == '9'
-  user_choice = desktop_folder
-else  puts "Please choose the folder which you wish to clean up:"
-puts "[0] - " + File.basename(downloads_folder)
-puts "[3] - " + File.basename(documents_folder)
-puts "[9] - " + File.basename(desktop_folder)
+until user_choice
+  puts "Invalid option. Please try again."
+  list_options
+  user_choice = folders[gets.chomp]
 end
 
+puts "Cleaning up #{File.basename(user_choice)}....🧹🧹🧹"
+
 ## Arrays used in the filtering logic.
-yearly_folders = ["2019", "2020", "2021", "2022", "2023", "2024", "2025"]
+current_year = Time.now.year
+yearly_folders = (current_year - 20..current_year + 20).to_a.map(&:to_s)
 
 def check_type(file)
   case file
