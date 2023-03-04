@@ -6,14 +6,15 @@ puts "Please choose the folder which you wish to clean up:"
 # List the three as options
 # Give an option to pick one [0, 3, 9]
 
-downloads_folder = File.join(Dir.home, 'Downloads')
-documents_folder = File.join(Dir.home, 'Documents')
-desktop_folder = File.join(Dir.home, 'Desktop')
-puts "[0] - " + File.basename(downloads_folder)
-puts "[3] - " + File.basename(documents_folder)
-puts "[9] - " + File.basename(desktop_folder)
+folders = {
+  '0' => downloads_folder = File.join(Dir.home, 'Downloads'),
+  '3' => documents_folder = File.join(Dir.home, 'Documents'),
+  '9' => desktop_folder = File.join(Dir.home, 'Desktop')
+}
 
-user_input = gets
+folders.each {|key, folder| puts "[#{key}] - #{File.basename(folder)}"}
+
+user_input = gets.chomp
 user_choice = ""
 if user_input == '0'
   user_choice = downloads_folder
@@ -71,4 +72,4 @@ def organize_downloads(user_choice, yearly_folders)
   end
 end
 
-organize_downloads(downloads_folder, yearly_folders)
+organize_downloads(user_choice, yearly_folders)
