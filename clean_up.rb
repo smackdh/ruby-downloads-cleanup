@@ -2,9 +2,6 @@ require 'find'
 require 'fileutils'
 
 puts "Please choose the folder which you wish to clean up:"
-# puts Dir.glob(Dir.home + "/*")
-# List the three as options
-# Give an option to pick one [0, 3, 9]
 
 folders = {
   '0' => downloads_folder = File.join(Dir.home, 'Downloads'),
